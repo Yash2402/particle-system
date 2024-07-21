@@ -19,30 +19,25 @@ int main(int argc, char *argv[])
 
     SDL_Init(SDL_INIT_EVERYTHING);
     bool running = true;
-    //  SDL_Rect r{10, 10, 250, 250};
-
-    Particle particle1(320, 240, 10, 0, 10);
-    Particle particle2(50, 240, 4, 0, 10);
 
     std::vector<Particle> particles;
     for (int i = 0; i < 100; i++){
-        particles.emplace_back(rand()%WIDTH, rand()%HEIGHT, rand()%10, rand()%10, 10);
+        particles.emplace_back(rand()%WIDTH, rand()%HEIGHT, 0, 0, 10, rand()%255, rand()%255, rand()%255, rand()%255);
     }
-
-    //  SDL_Surface* ball = IMG_Load("./bitmap.png");
+    bool update = true;
     while(running){
-        while(SDL_PollEvent(&e))
-        { 
+        while(SDL_PollEvent(&e)) { 
             if (e.type == SDL_QUIT) running = false; 
-//            if (e.type == SDL_MOUSEMOTION) { SDL_GetMouseState(&particle.x, &particle.y); particle.x -= 250/2; particle.y -= 250/2; }
+            if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_SPACE) update = !update;
         }
-        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 120);
         SDL_RenderClear(renderer);
+
         for(int i = 0; i < 100; i++){
             particles[i].show(renderer);
             particles[i].applyForce(0, rand()%5);
-            particles[i].update();
+            if(update) particles[i].update();
             particles[i].edge(WIDTH, HEIGHT, OFFSET);
         }
         SDL_RenderPresent(renderer);
