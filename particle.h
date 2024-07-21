@@ -32,6 +32,16 @@ class Particle{
         void show(SDL_Renderer *renderer){
             filledCircleRGBA(renderer, x, y, radius, r, g, b, a);
         }
+        void steer(int x, int y){
+            float dx = (x - this->x)/200.0f;
+            float dy = (y - this->y)/200.0f;
+            applyForce(dx, dy);
+            update(1.0f);
+        }
+        void collision(Particle* p1, Particle* p2){
+            
+        }
+
         void edge(int width, int height, int offset){
             float velx = (this->x - this->prev_x)*0.3f;
             float vely = (this->y - this->prev_y)*0.3f;
