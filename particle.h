@@ -7,7 +7,7 @@ class Particle{
         double prev_y = y; 
         double accx, accy;
         int radius;
-        int mass = 125;
+        int mass = 25;
         int drag = 1;
         int r = 0;
         int g = 0;
@@ -15,7 +15,7 @@ class Particle{
         int a = 255;
 
         Particle(double x, double y, int radius): x(x), y(y), radius(radius){}
-        Particle(double x, double y, int radius, int r, int g, int b, int a): x(x), y(y), radius(radius), r(r), g(g), b(b), a(a){}
+        Particle(double x, double y, int radius, int r, int g, int b, int a): x(x), y(y), radius(radius), r(r), g(g), b(b), a(a){ }
 
         void update(double dt){
             double velx = this->x - this->prev_x;
@@ -31,11 +31,11 @@ class Particle{
         }
 
         void show(SDL_Renderer *renderer){
-            filledCircleRGBA(renderer, x, y, radius, r, g, b, a);
+            aacircleRGBA(renderer, x, y, radius, r, g, b, a);
         }
         void steer(int x, int y){
-            double dx = (x - this->x)/20.0f;
-            double dy = (y - this->y)/20.0f;
+            double dx = (x - this->x);
+            double dy = (y - this->y);
             this->applyForce(dx, dy);
             this->update(0.20f);
         }
