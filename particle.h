@@ -2,6 +2,7 @@
 
 class Particle{
     public:
+        int id;
         double x, y; 
         double prev_x = x;
         double prev_y = y; 
@@ -14,8 +15,9 @@ class Particle{
         int b = 0;
         int a = 255;
 
-        Particle(double x, double y, int radius): x(x), y(y), radius(radius){}
-        Particle(double x, double y, int radius, int r, int g, int b, int a): x(x), y(y), radius(radius), r(r), g(g), b(b), a(a){ }
+        Particle(int id, double x, double y, int radius): id(id), x(x), y(y), radius(radius){}
+        Particle(int id, double x, double y, int radius, int r, int g, int b, int a): id(id), x(x), y(y), radius(radius), r(r), g(g), b(b), a(a){ }
+
 
         void update(double dt){
             double velx = this->x - this->prev_x;
@@ -31,7 +33,7 @@ class Particle{
         }
 
         void show(SDL_Renderer *renderer){
-            aacircleRGBA(renderer, x, y, radius, r, g, b, a);
+            filledCircleRGBA(renderer, x, y, radius, r, g, b, a);
         }
         void steer(int x, int y){
             double dx = (x - this->x);
