@@ -33,13 +33,15 @@ class Particle{
         }
 
         void show(SDL_Renderer *renderer){
-            filledCircleRGBA(renderer, x, y, radius, r, g, b, a);
+            circleRGBA(renderer, x, y, radius, r, g, b, a);
+            // SDL_SetRenderDrawColor(renderer, r, g, b, a);
+            // SDL_RenderDrawPointF(renderer, x, y);
         }
-        void steer(int x, int y){
+        void steer(int x, int y, double delta_time){
             double dx = (x - this->x);
             double dy = (y - this->y);
             this->applyForce(dx, dy);
-            this->update(0.20f);
+            this->update(delta_time);
         }
         void collision(Particle* particle, int step){
             for(int i = 0; i < step; ++i){
@@ -54,8 +56,6 @@ class Particle{
                     this->y += delta*n_dy*0.5f;
                     particle->x -= delta*n_dx*0.5f;
                     particle->y -= delta*n_dy*0.5f;
-                    //  std::cout<<this->x - this->prev_x<<"  "<<this->y - this->prev_y<<std::endl;
-                    //  std::cout<<particle->x - particle->prev_x<<"  "<<particle->y - particle->prev_y<<std::endl;
                 }
 
             }
@@ -73,8 +73,8 @@ class Particle{
         }
 
         void edge(int width, int height, int offset){
-            double velx = (this->x - this->prev_x)*0.8f;
-            double vely = (this->y - this->prev_y)*0.8f;
+            double velx = (this->x - this->prev_x)*0.7f;
+            double vely = (this->y - this->prev_y)*0.7f;
 
             if (this->x <= offset + this->radius){ 
                 this->x = offset + this->radius; 
@@ -92,3 +92,7 @@ class Particle{
         }
         ~Particle(){};
 };
+
+std::ostream &operator<<(std::ostream &os, Particle const &particle) { 
+    return os <<"id: "<<particle.id<<" : "<<std::endl<<"pos: ("<< particle.x<<", "<<particle.y<<")"<<std::endl<<"vel: ("<<particle.x - particle.prev_x<<", "<<particle.y - particle.prev_y<<")"<<std::endl<<"radius: "<<particle.radius<<std::endl; 
+}
