@@ -114,17 +114,16 @@ int main(int argc, char *argv[]){
             }
         }
 
-        std::cout<<particles.size()<<std::endl;
-        //  std::string nopText = "NO OF PARTICLE: " + std::to_string(static_cast<int>(particles.size()));
-        //  SDL_Surface *nopSurface = TTF_RenderText_Solid(font, nopText.c_str(), white);
-        //  SDL_Texture *nopTexture = SDL_CreateTextureFromSurface(renderer, nopSurface);
+        std::string nopText = "NO OF PARTICLE: " + std::to_string(static_cast<int>(particles.size()));
+        SDL_Surface *nopSurface = TTF_RenderText_Solid(font, nopText.c_str(), white);
+        SDL_Texture *nopTexture = SDL_CreateTextureFromSurface(renderer, nopSurface);
 
-        //  int textWidth = nopSurface->w;
-        //  int textHeight = nopSurface->h;
-        //  SDL_FreeSurface(nopSurface);
-        //  SDL_Rect renderQuad = {GRID_WIDTH+20, GRID_WIDTH+20, textWidth, textHeight};
-        //  SDL_RenderCopy(renderer, nopTexture, nullptr, &renderQuad);
-        //  SDL_DestroyTexture(nopTexture);
+        int textWidth = nopSurface->w;
+        int textHeight = nopSurface->h;
+        SDL_FreeSurface(nopSurface);
+        SDL_Rect renderQuad = {GRID_WIDTH+20, GRID_WIDTH+20, textWidth, textHeight};
+        SDL_RenderCopy(renderer, nopTexture, nullptr, &renderQuad);
+        SDL_DestroyTexture(nopTexture);
         SDL_RenderPresent(renderer);
 
         currentTick = SDL_GetTicks();
