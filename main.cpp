@@ -3,6 +3,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL2_gfxPrimitives.h>
+#include <SDL2/SDL_image.h>
 #include "quadtree.h"
 #include "particle.h"
 
@@ -17,6 +18,7 @@
 int main(int argc, char *argv[]){
 
     double delta_time = 0.05;
+    int GRAVITY = 150;
     int RADIUS = 10;
     int steps = 12;
     SDL_Color white = {255, 255, 255, 255};
@@ -30,6 +32,7 @@ int main(int argc, char *argv[]){
     SDL_Event e;
 
     SDL_Init(SDL_INIT_EVERYTHING);
+    IMG_Init(IMG_INIT_PNG);
     if (TTF_Init() == -1) {
         std::cerr << "TTF_Init: " << TTF_GetError() << std::endl;
         return 1;
@@ -95,8 +98,8 @@ int main(int argc, char *argv[]){
         // Update and display particles
         for(size_t i = 0; i < particles.size(); i++){
             if (update) {
-                particles[i].applyForce(rand()%STRENGTH*pow(-1, rand()%2), rand()%STRENGTH*pow(-1, rand()%2));
-                // particles[i].applyForce(2, 5000);
+                // particles[i].applyForce(rand()%STRENGTH*pow(-1, rand()%2), rand()%STRENGTH*pow(-1, rand()%2));
+                particles[i].applyForce(2, GRAVITY);
                 particles[i].update(delta_time);
             }
             particles[i].edge(WIDTH, HEIGHT, GRID_WIDTH);

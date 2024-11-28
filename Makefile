@@ -1,8 +1,8 @@
 # Variables
 PROJECT = particle-system
 CXX = g++
-CXXFLAGS = -Wall -g `sdl2-config --cflags`
-LDFLAGS = `sdl2-config --libs` -lSDL2_image -lSDL2_gfx -lSDL2_ttf
+CXXFLAGS = -Wc++11-extensions -g `sdl2-config --cflags` -I/opt/homebrew/include
+LDFLAGS = `sdl2-config --libs` -lSDL2_image -lSDL2_gfx -lSDL2_ttf -L/opt/homebrew/lib
 
 # Targets and dependencies
 all: main

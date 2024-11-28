@@ -32,6 +32,18 @@ class Particle{
             this->accy = forcey/mass;
         }
 
+        void showIMG(SDL_Renderer *renderer, const char *imagePath){
+            SDL_Texture* grass_image = nullptr;
+            grass_image = IMG_LoadTexture(renderer, imagePath);
+            SDL_Rect grass_rect;
+            grass_rect.x = x - radius*4;
+            grass_rect.y = y - radius*4;
+            grass_rect.w = (float)radius*8;
+            grass_rect.h = (float)radius*8;
+            SDL_RenderCopy(renderer, grass_image, NULL, &grass_rect);
+            SDL_DestroyTexture(grass_image);
+        }	
+
         void show(SDL_Renderer *renderer){
             circleRGBA(renderer, x, y, radius, r, g, b, a);
             // SDL_SetRenderDrawColor(renderer, r, g, b, a);
@@ -60,6 +72,7 @@ class Particle{
 
             }
         }
+
         void circularEdge(double x, double y, double radius) {
             double dx = this->x - x;
             double dy = this->y - y;
